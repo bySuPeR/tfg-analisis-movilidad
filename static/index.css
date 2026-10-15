@@ -1,0 +1,296 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('fondo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+
+}
+
+.formulario{
+  display: flex;
+  width: 600px;
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid white;
+  backdrop-filter: blur(5px);
+  color:white;
+  padding: 30px 40px;
+  border-radius: 20px;
+}
+
+
+.arriba {
+  display: flex;
+  width: 100%;
+  /* border: 3px solid red; */
+  justify-content: center;
+}
+
+
+.abajo {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  /* border: 3px solid yellow; */
+}
+
+
+
+.arriba .movilidad{
+  padding-left: 18px;
+  width: 50%;
+  padding-right: 18px;
+  align-items: center;
+  text-align: center;
+  /* border: 3px solid green; */
+  
+}
+
+
+.arriba .estacionBase{
+  border-left: 3px solid white;
+  padding-left: 15px;
+  padding-right: 18px;
+  /* border: 3px solid blue; */
+  
+  width: 50%;
+}
+
+.formulario h1{
+    font-size: 36px;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.formulario h2{
+  font-size: 28px;
+  text-align: center;
+}
+.formulario h5{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+
+#Dia, #Hora{
+    background-color: rgb(221, 170, 170);
+}
+.formulario .input-time, .formulario .input-date{
+    width: 100%;
+    height:50px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
+
+
+.input-time input, .input-date input{
+    padding: 15px;
+    width: 49%;
+    height:100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 3px solid white;
+    color: white;
+    border-radius: 40px;
+    
+}
+
+.formulario input[type=submit]{
+    width: 80%;
+    height: 45px;
+    background: #f79eb1;
+    border: none;
+    outline:none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor:pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    color:white;
+    border: 3px solid white;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.select{
+    margin-top: 15px;
+    display:flex;
+    justify-content: center;
+    position: relative;
+    min-width: 250px;
+    border: 3px solid white;
+    border-radius: 23px;
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.select_antena, .select_uso, .select_movilidad {
+    border: none;
+    appearance: none;
+    padding: 0 30px 0 15px;
+    width: 100%;
+    color: white;
+    background-color: rgb(221, 170, 170);
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.select .icono-select{
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 19px;
+    justify-content: center;
+    
+    background-color:rgb(255, 255, 255) ;
+}
+.icono-select img{
+    width: 70%;
+}
+
+  .search-container {
+    position: relative;
+    width: 300px;
+    margin: 30px auto;
+  }
+  
+  #searchInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 3px solid white;
+    background-color: rgb(221, 170, 170);
+    color: white;
+
+    border-radius: 20px;
+  }
+  #searchInput::placeholder {
+    color: white;
+  }
+  
+  #suggestions {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background-color: rgb(221, 170, 170);
+    /* border: 3px solid #fff; */
+    border-radius: 20px 20px 20px 20px;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  #suggestions li {
+    padding: 10px;
+    cursor: pointer;
+    color: white; /* Cambia el color del texto a negro */
+    border-bottom: 3px solid #fff;
+  }
+
+  #suggestions li:last-child {
+    border-bottom: none; /* Elimina la línea blanca en la última sugerencia */
+  }
+  
+  #suggestions li:hover {
+    background-color:  rgb(211, 174, 174);
+  }
+  
+  #suggestions li:first-child:hover {
+    background-color: rgb(211, 174, 174);
+    border-radius: 20px 20px 0 0 ;
+  }
+
+  #suggestions li:last-child:hover {
+    background-color:  rgb(211, 174, 174);
+    border-radius: 0 0 20px 20px;
+  }
+
+
+#archivoMovilidad, #archivoEstacion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#formato, #formatoEstacion{
+  font-size: 12px;
+  display: inline-block;
+  
+}
+
+.botonSubir input[type="file"], .botonSubirEst input[type="file"] {
+  display: none;
+}
+
+
+.botonSubir, .botonSubirEst {
+  width:70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  color: white ;
+  background:rgb(221, 170, 170) ;
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 5px 15px 25px rgba(0,0,0,.3);
+  border-radius: 15px;
+  border: 2px solid white;
+}
+
+#SubirArchivo i, #SubirArchivoEst i{
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+#SubirArchivo:active, #SubirArchivoEst:active{
+  transform: scale(0.9);
+}
+
+
+.botonSubir span,   .botonSubirEst span{
+  margin-top: 5px; /* Ajusta el margen superior según sea necesario */
+}
+
+#formatoEstacion, #formato{
+  margin-top: 5px;
+}
+
+.errores {
+  color: lightpink; /* Texto blanco */
+  padding: 10px; /* Espaciado interno */
+  
+  
+}
+
+.errores ul {
+  list-style-type: none; /* Eliminar los puntos de la lista */
+  padding: 0; /* Eliminar el relleno predeterminado */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra */
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+  border-radius: 5px; /* Bordes redondeados */
+}

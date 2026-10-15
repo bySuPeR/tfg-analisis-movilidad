@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Principal</title>
+    <link rel="icon" href="{{ url_for('static', filename='logoWeb.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="../static/web.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="menu">
+            <ion-icon name="menu-outline"></ion-icon>
+            <ion-icon name="close-outline"></ion-icon>
+        </div>
+
+
+
+        <div class="menuGraficas">
+            <ion-icon name="eye-outline"></ion-icon>
+            <ion-icon name="eye-off-outline"></ion-icon>
+        </div>
+
+
+ 
+
+
+
+
+
+
+
+        <div class="graficas mini-graficas" id="graficasContainer">
+            <div class="graficas-fondo"></div>
+            <div class="graficas-container">
+                <div class="formGraficas">
+                    <h1>Resultados</h1>
+                    <form>
+                        <div class="select">
+                            <select name="select_graficas" id="select_graficas" class="select_graficas">
+                                <option disabled selected>Selecciona gráfica para ver</option>
+                                {% for archivo in lista_simulacion %}
+                                {% if archivo.endswith('.html') %}
+                                    <option value="{{ archivo }}">{{ archivo.split('.')[0].replace('_', ' ') }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                            <div class="icono-select">
+                                <img src="../static/icono-select.png">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="graficas-iframe">
+                        <iframe id="iframe_archivo" src="" hidden></iframe>
+                    </div>
+                </div>
+                <div class="descargar_archivo">
+                    <h1>Descargar archivos</h1>
+                    <form action="{{ url_for('descargar_archivos') }}" method="post">
+                        <div class="descargar-linea2">
+                            <label>
+                                <input type="checkbox" name="file_type" value="graficas"> Gráficas
+                                <span class="info-icon">i
+                                    <span class="info-popup">Contiene archivos PNG correspondiente a las gráficas de los resultados obtenidos del estudio realizado.</span>
+                                </span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="file_type" value="info_simulacion"> Info de Simulación
+                                <span class="info-icon">i
+                                    <span class="info-popup">Contiene archivos JSON y CSV sobre los diferentes elementos del estudio como las estaciones base y las trazas de movilidad</span>
+                                </span>
+                            </label>
+                            <button type="submit" class="boton-descargar">
+                                <i class="fa-solid fa-download"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+       
+        <div class="formulario mini-formulario" id="formularioContainer">
+            <div class="formulario-fondo"></div>
+            <div class="formulario-container">
+                <form action="/datosElegidos" method="post"  enctype="multipart/form-data">
+                    <h1>MOBINTAC</h1>
+                    <div class="arriba">
+                        <div class="movilidad">
+                            <h2>Movilidad</h2>
+                            <div class="select">
+                                <select id="select_movilidad" name="select_movilidad" class="select_movilidad">
+                                    <option value="taxi" {% if datos and datos.get('select_movilidad') == 'taxi' %} selected {% endif %}>Vehículo</option>
+                                    <option value="humana" {% if datos and datos.get('select_movilidad') == 'humana' %} selected {% endif %}>Movilidad Humana</option>
+                                </select>     
+                                <div class="icono-select">
+                                    <img src="../static/icono-select.png">
+                                </div>
+                            </div>
+                            <div id="archivoMovilidad">
+                                <div class="botonSubir">
+                                    <label id="SubirArchivo" for="archivo"> <i class="fa-solid fa-upload"></i>Subir archivo</label>
+                                    <input type="file" id="archivo" name="archivo">
+                                    <span id="labelTipoArchivo"></span>
+                                </div>
+                                <span id="formato"></span>
+                            </div>
+                            <div class="fecha">
+                                <div class="input-date">
+                                    <h5>Elige día mínimo y máximo</h5>
+                                    <input type="date" name="valorDiaMin" id="Dia" value="{{ datos['valorDiaMin'] if 'valorDiaMin' in datos else '2014-02-03' }}">
+                                    <input type="date" name="valorDiaMax" id="Dia" value="{{ datos['valorDiaMax'] if 'valorDiaMax' in datos else '2014-02-03' }}">
+                                </div>
+                                <div class="input-time">
+                                    <h5>Elige hora mínima y máxima</h5>
+                                    <input type="time" name="valorHoraMin" id="Hora" value="{{ datos['valorHoraMin'] if 'valorHoraMin' in datos else '01:20:05' }}" step="1">
+                                    <input type="time" name="valorHoraMax" id="Hora" value="{{ datos['valorHoraMax'] if 'valorHoraMax' in datos else '01:21:47' }}" step="1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="estacionBase">
+                            <h2>Estaciones Base</h2>
+                            <div class="select">
+                                <select name="select_antena" class="select_antena">
+                                    <option disabled selected="">Selecciona tipo de Antena</option>
+                                    <option value="Todas" {% if 'select_antena' in datos and datos['select_antena'] == 'Todas' %} selected {% endif %}>Todas</option>
+                                    <option value="GSM" {% if 'select_antena' in datos and datos['select_antena'] == 'GSM' %} selected {% endif %}>GSM</option>
+                                    <option value="UMTS" {% if 'select_antena' in datos and datos['select_antena'] == 'UMTS' %} selected {% endif %}>UMTS</option>
+                                    <option value="LTE" {% if 'select_antena' in datos and datos['select_antena'] == 'LTE' %} selected {% endif %}>LTE</option>
+                                </select>
+                                <div class="icono-select">
+                                    <img src="../static/icono-select.png">
+                                </div>
+                            </div>
+                            <div class="select">
+                                <select name="select_uso" class="select_uso">
+                                    <option disabled selected="">Selecciona tipo de Uso</option>
+                                    <option value="subida" {% if 'select_uso' in datos and datos['select_uso'] == 'subida' %} selected {% endif %}>Archivo (versión recomendada)</option>
+                                    <option value="api" {% if 'select_uso' in datos and datos['select_uso'] == 'api' %} selected {% endif %}>API (versión limitada)</option>
+                                </select>
+                                <div class="icono-select">
+                                    <img src="../static/icono-select.png">
+                                </div>
+                            </div>
+                            <div id="archivoEstacion">
+                                <div class="botonSubirEst">
+                                    <label id="SubirArchivoEst" for="archivoEst"> <i class="fa-solid fa-upload"></i>Subir archivo</label>
+                                    <input type="file" id="archivoEst" name="archivoEst" >
+                                    <span id="labelTipoArchivoEstacion"></span>
+                                </div>
+                                <span id="formatoEstacion"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="abajo">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" name="searchInput" placeholder="Buscar ciudad..." value="{{ datos['searchInput'] if 'searchInput' in datos else '' }}">
+                        <ul id="suggestions"></ul>
+                        <input type="hidden" id="latitud" name="latitud" value="{{ datos['latitud'] if 'latitud' in datos else '' }}">
+                        <input type="hidden" id="longitud" name="longitud" value="{{ datos['longitud'] if 'longitud' in datos else '' }}">
+                    </div>
+                    <div class="submit">
+                        <input type="submit" value="Enviar">
+                    </div>
+                    <div class="errores">
+                        {% if errores %}
+                        <ul>
+                            {% for error in errores %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>           
+                </form>
+            </div> 
+        </div>
+        
+        <div class="mapa">
+            <iframe src="{{ url_for('static', filename='mapa.html') }}"></iframe>
+        </div>
+    </div>
+    <script src="../static/buscador.js"></script>
+    <script src="../static/formulario.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/index.js"></script>
+    <script>
+            
+        $('#select_graficas').change(function() {
+            var archivoSeleccionado = $(this).val();        
+            archivoSeleccionado = "../static/" + archivoSeleccionado;
+            console.log("Ruta del archivo seleccionado:", archivoSeleccionado);
+            $('#iframe_archivo').attr('src', archivoSeleccionado).removeAttr('hidden');;
+        });
+
+    </script>
+</body>    
+</html>

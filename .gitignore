@@ -1,0 +1,19 @@
+﻿# Entorno virtual y Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Configuración y credenciales
+.env
+.env.*
+!.env.example
+
+# Caché
+cache/
+.pytest_cache/
+
+# Editor y sistema
+.vscode/
+.DS_Store
+Thumbs.db
